@@ -1,0 +1,35 @@
+Example : 
+SHA256:  56b2a0eb3321bb47c7551101f35214d834f6b469a44a8ebaf7af226a42cb1427 
+MD5: 57fd566e02137cc03abdb13d9de4b108
+
+
+Execute the malware and observe the events in process monitor 
+Extract the  malicious process dump using Process explorer based on the parent process ID 
+
+
+Extract strings to text file
+
+$ strings svchost.dmp > svctext.txt
+
+Extract IP address with port 
+
+$ cat svctext.txt | perl -nle'/(\d+\.\d+\.\d+\.\d+:\d+)/ && print $1' | sed '1 d'
+5.53.124.49:443
+186.47.82.6:449
+191.37.181.152:449
+45.137.151.112:443
+51.79.57.148:443
+
+Unique IP address list 
+
+$ cat svctext.txt | perl -nle'/(\d+\.\d+\.\d+\.\d+:\d+)/ && print $1' | sed '1 d' | uniq  > ip-ioc.txt
+5.53.124.49:443
+186.47.82.6:449
+191.37.181.152:449
+45.137.151.112:443
+51.79.57.148:443
+
+
+
+
+
